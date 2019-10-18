@@ -1,17 +1,26 @@
 <resources>
     <string name="app_name">EGR423-ShareSchedule</string>
 
+    <!-- THIS IS GENERIC APP NAME -->
+    <string name="appNameTitle">Share Schedule</string>
+
+    <!-- THIS IS FOR LOGIN -->
     <string name="login_button">Login</string>
+    <string name="google_Login_button">Login with Google</string>
+
+    <!-- THIS IS FOR REGISTER -->
     <string name="register_button">Register</string>
-
-    <string name="firstNameField">First Name:</string>
-    <string name="lastNameField">Last Name:</string>
-    <string name="emailField">Email: </string>
-    <string name="passwordField">Please Enter Password: </string>
+    <string name="firstNameField">Please enter first name:</string>
+    <string name="lastNameField">Please enter last name:</string>
+    <string name="emailField">Please enter email: </string>
+    <string name="passwordField">Please enter password: </string>
     <string name="dateOfBirthField">Select your date of birth:</string>
+    <string name="shareScheduleRegistrationPage">Share Schedule Registration Page</string>
 
+    <!-- THIS IS GENERIC SUBMIT BUTTON -->
     <string name="submit_button">Submit</string>
 
+    <!-- THIS IS FOR MAIN PAGE -->
+    <string name="app_description">Share Schedule allows you to compare your schedule with your friends and plan for events that are convenient for everyone!</string>
 
-    <string name="app_description">Welcome to ShareSchedule! \nShare Schedule allows you to compare your schedule with your friends and plan for events that are convenient for everyone!</string>
 </resources>
