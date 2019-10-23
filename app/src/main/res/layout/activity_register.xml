@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:layout_margin="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -56,7 +58,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/dateOfBirthField"
             android:inputType="date"
-            android:padding="25dp" />
+            android:clickable="true"
+            android:padding="25dp"
+            android:focusable="true" />
 
         <Button
             android:id="@+id/submit_button"
@@ -65,6 +69,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="55dp"
             android:text="@string/submit_button" />
+
+
     </LinearLayout>
 
 </LinearLayout>
