@@ -4,6 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_login.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,11 +23,6 @@ class MainActivity : AppCompatActivity() {
         loginButton = findViewById(R.id.login_button)
         registerButton = findViewById(R.id.register_button)
 
-        registerButton.setOnClickListener {
-            //TODO GO TO THE REGISTER FRAGMENT
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
 
         loginButton.setOnClickListener {
             //TODO GO TO THE LOGIN ACTIVITY
@@ -30,5 +30,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        registerButton.setOnClickListener {
+            //TODO GO TO THE REGISTER FRAGMENT
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
+
 }

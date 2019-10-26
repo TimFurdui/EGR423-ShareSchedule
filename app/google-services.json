@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "259503104301",
+    "firebase_url": "https://egr423-shareschedule.firebaseio.com",
+    "project_id": "egr423-shareschedule",
+    "storage_bucket": "egr423-shareschedule.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259503104301:android:e4fb10b9be4f947fe433a4",
+        "android_client_info": {
+          "package_name": "com.egr423.egr423_shareschedule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259503104301-intuslrn0t8abb3c1lkcdhi14hbis4ko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egr423.egr423_shareschedule",
+            "certificate_hash": "241c907896f5938f77ab61f6c6b6f8237e234189"
+          }
+        },
+        {
+          "client_id": "259503104301-a0hnd04qp7p2gih9ofto5e9rqbgvibsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqnfFmxWVwqwGQMr4MaP6EMbW5Ttw7QSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259503104301-a0hnd04qp7p2gih9ofto5e9rqbgvibsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
