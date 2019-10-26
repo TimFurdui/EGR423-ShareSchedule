@@ -26,11 +26,14 @@ class MainActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             //TODO GO TO THE LOGIN ACTIVITY
-            startActivity(Intent(this, LoginActivity::class.java))
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+
         }
         registerButton.setOnClickListener {
             //TODO GO TO THE REGISTER FRAGMENT
-            startActivity(Intent(this, RegisterActivity::class.java))
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
 
