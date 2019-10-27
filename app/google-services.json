@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "259503104301-ndr3jsho6nan9c0607m46ihf6lbmo5dk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egr423.egr423_shareschedule",
+            "certificate_hash": "1a358c93b6b245487064495ad1d32890f14af57c"
+          }
+        },
+        {
           "client_id": "259503104301-intuslrn0t8abb3c1lkcdhi14hbis4ko.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
