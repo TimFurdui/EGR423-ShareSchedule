@@ -23,13 +23,14 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
 
+private const val NAME_OF_USER = "LoginActivity.nameOfUser"
+
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var loginEmail: EditText
     private lateinit var loginPassword: EditText
     private lateinit var loginButton: Button
 
-    public lateinit var firebaseUser : FirebaseUser
 
     // [START declare_auth]
     private lateinit var auth: FirebaseAuth
@@ -113,14 +114,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
 
-                    //TODO MAKE A NEW INTENT TO PASS DATA FROM ONE ACTIVITY TO ANOTHER
-                    //TODO PASS USER DATA TO CALENDARACTIVITY AND POPULATE NAME FIELD
-                    if (user != null) {
-                        firebaseUser = user
-
-                    }
                     //TODO if Login is successful than redirect to calendar activity
-                    startActivity(Intent(this, CalendarActivity::class.java))
+                    val calendarIntent  = Intent(this, CalendarActivity::class.java)
+                    if (user != null) {
+                        calendarIntent.putExtra(NAME_OF_USER, user.displayName)
+                    }
+                    startActivity(calendarIntent)
 //                    updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
