@@ -1,5 +1,6 @@
 package com.egr423.egr423_shareschedule
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.CalendarView
 import android.widget.TextView
@@ -17,7 +18,8 @@ class CalendarActivity : AppCompatActivity(){
         setContentView(R.layout.activity_calendar)
 
         name = findViewById(R.id.nameOfUser)
-        name.text = "temporary text"
+
+        name.text = intent.extras!!["LoginActivity.nameOfUser"] as CharSequence?
 
         calendar = findViewById(R.id.calendarView)
         calendar.setOnDateChangeListener{view, year, month, dayOfMonth ->
@@ -25,7 +27,5 @@ class CalendarActivity : AppCompatActivity(){
             Toast.makeText(this@CalendarActivity, msg, Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
 }
