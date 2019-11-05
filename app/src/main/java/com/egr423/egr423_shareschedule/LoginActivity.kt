@@ -9,27 +9,25 @@ import android.widget.Button
 import android.widget.EditText
 
 import android.widget.Toast
-import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
 
-private const val NAME_OF_USER = "LoginActivity.nameOfUser"
+//private const val NAME_OF_USER = "LoginActivity.nameOfUser"
+private const val GOOGLE_USER = "LoginActivity.FireBaseUser"
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var loginEmail: EditText
     private lateinit var loginPassword: EditText
     private lateinit var loginButton: Button
+//    private lateinit var firebaseUser: FirebaseUser
 
 
     // [START declare_auth]
@@ -71,7 +69,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
+
+//        firebaseUser = auth.currentUser!!
 
         //TODO Handle checking if user signed in
 //        updateUI(currentUser)
@@ -116,9 +115,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                     //TODO if Login is successful than redirect to calendar activity
                     val calendarIntent  = Intent(this, CalendarActivity::class.java)
-                    if (user != null) {
-                        calendarIntent.putExtra(NAME_OF_USER, user.displayName)
-                    }
+//                    if (user != null) {
+////                        calendarIntent.putExtra(NAME_OF_USER, user.displayName)
+////                        calendarIntent.putExtra(firebaseUser, user.displayName)
+//                    }
                     startActivity(calendarIntent)
 //                    updateUI(user)
                 } else {
