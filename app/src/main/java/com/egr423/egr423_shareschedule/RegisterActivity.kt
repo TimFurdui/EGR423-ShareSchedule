@@ -48,15 +48,20 @@ class RegisterActivity : AppCompatActivity() {
         submitButton.setOnClickListener {
 
             //TODO check to make sure there are no duplicates (USE EMAIL)
+            if (checkIfUserExists(email.text.toString())){
+
+            } else {
 
             //Reads the set text from the user input
-            writeUserToDb(
-                firstName.text.toString(),
-                lastName.text.toString(),
-                email.text.toString(),
-                password.text.toString(),
-                SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(date.text.toString())
-            )
+                writeUserToDb(
+                    firstName.text.toString(),
+                    lastName.text.toString(),
+                    email.text.toString(),
+                    password.text.toString(),
+                    SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(date.text.toString())
+                )
+            }
+
         }
 
     }
@@ -124,17 +129,20 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    private fun checkIfUserExists(email: String) {
+    private fun checkIfUserExists(email: String): Boolean {
 
         //can also just do a query on all documents & check if it contains email
-        var result = db.collection("users").get()
-        for (document in result) {
-            if (document.contains(email)) {
-                //TODO can create a toast to alert user if account is already registered with this email
+        val usersRef = db.collection("users")
+        val result = usersRef.whereEqualTo("email", email)
+        return if (result.toString() == email) {
 
-            }
-        }
+            Log.w(TAG, "FOUND EMAIL $result")
+            true
+        } else
+            false
 
+        //TODO can create a toast to alert user if account is already registered with this email
     }
+
 
 }
