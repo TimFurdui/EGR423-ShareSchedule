@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -25,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var submitButton: Button
 
-    val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,21 +47,8 @@ class RegisterActivity : AppCompatActivity() {
 
         //Set on click listener to call write to DB function
         submitButton.setOnClickListener {
-
-            //TODO check to make sure there are no duplicates (USE EMAIL)
-            if (checkIfUserExists(email.text.toString())){
-
-            } else {
-
-            //Reads the set text from the user input
-                writeUserToDb(
-                    firstName.text.toString(),
-                    lastName.text.toString(),
-                    email.text.toString(),
-                    password.text.toString(),
-                    SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(date.text.toString())
-                )
-            }
+            //Check to make sure there are no users registered with that email
+            addUserToDb()
 
         }
 
@@ -93,55 +81,60 @@ class RegisterActivity : AppCompatActivity() {
 
     @SuppressLint("NewApi")
     private fun updateTextField(myCalendar: Calendar, dateEditText: EditText) {
-        val myFormat: String = "dd-MM-yyyy"
+        val myFormat = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         dateEditText.setText(sdf.format(myCalendar.time))
     }
 
-    private fun writeUserToDb(
-        firstName: String,
-        lastName: String,
-        email: String,
-        password: String,
-        birthDate: Date
-    ) {
-        //User Privilege is initially set to 0
-        val user = hashMapOf(
-            "userID" to UUID.randomUUID().toString(),
-            "firstName" to firstName,
-            "lastName" to lastName,
-            "email" to email,
-            "password" to password,
-            "birthDate" to birthDate,
-            "userPrivilege" to 0,
-            "userComments" to listOf("")
-        )
-        try {
-            db.collection("users").add(user).addOnSuccessListener { documentReference ->
-                Log.d(
-                    TAG,
-                    "DocumentSnapshot added with ID: ${documentReference.id}"
-                )
-            }.addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    @SuppressLint("NewApi")
+    private fun addUserToDb() {
 
-    }
+        val userExistQuery = db.collection("users")
 
-    private fun checkIfUserExists(email: String): Boolean {
+        userExistQuery.document(email.text.toString()).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
 
-        //can also just do a query on all documents & check if it contains email
-        val usersRef = db.collection("users")
-        val result = usersRef.whereEqualTo("email", email)
-        return if (result.toString() == email) {
+                    Toast.makeText(
+                        this,
+                        "Account already registered with supplied email, choose another.",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-            Log.w(TAG, "FOUND EMAIL $result")
-            true
-        } else
-            false
+                    Log.w(
+                        TAG,
+                        "Account already exists with supplied email : ${email.text}"
+                    )
 
-        //TODO can create a toast to alert user if account is already registered with this email
+                } else {
+                    val user = hashMapOf(
+                        "firstName" to firstName.text.toString(),
+                        "lastName" to lastName.text.toString(),
+                        "email" to email.text.toString(),
+                        "password" to password.text.toString(),
+                        "birthDate" to SimpleDateFormat(
+                            "dd-MM-yyyy",
+                            Locale.US
+                        ).parse(date.text.toString()),
+                        "userPrivilege" to 0,
+                        "userComments" to listOf("")
+                    )
+
+                    //Create a new document for the User with the ID as Email of user
+                    //useful to query db and check if user already exists
+                    try {
+                        db.collection("users").document(email.text.toString()).set(user)
+                            .addOnSuccessListener {
+                                Log.d(
+                                    TAG,
+                                    "DocumentSnapshot added with ID as Email: $email"
+                                )
+                            }.addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
     }
 
 
