@@ -5,21 +5,13 @@ import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-//import com.google.api.services.calendar.Calendar;
-//import com.google.api.services.calendar.model.Event;
 
 
+class CalendarActivity : AppCompatActivity() {
 
 
-class CalendarActivity : AppCompatActivity(){
-
-
-
-    private lateinit var calendar : CalendarView
-    private lateinit var name : TextView
-
-//    private val currentUser = FirebaseAuth.getInstance().currentUser
+    private lateinit var calendar: CalendarView
+    private lateinit var name: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -27,11 +19,22 @@ class CalendarActivity : AppCompatActivity(){
         setContentView(R.layout.activity_calendar)
 
         name = findViewById(R.id.nameOfUser)
-
-//        name.text = currentUser!!.displayName
-        name.text = "placeholde"
+        populateUserData()
         calendar = findViewById(R.id.calendarView)
-        calendar.setOnDateChangeListener{view, year, month, dayOfMonth ->
+        createCalendar()
+    }
+
+
+    private fun populateUserData() {
+        name.text = intent.getStringExtra(LoginActivity.TAG)
+
+    }
+
+    private fun createCalendar() {
+
+        //TODO can make this change to open a new fragment upon click and to create event and populate in db
+        
+        calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val msg = "Selected date is" + dayOfMonth + "/" + (month + 1) + "/" + year
             Toast.makeText(this@CalendarActivity, msg, Toast.LENGTH_SHORT).show()
         }

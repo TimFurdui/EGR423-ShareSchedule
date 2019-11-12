@@ -11,16 +11,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
-private const val TAG = "LoginActivity"
 
-class LoginActivity : AppCompatActivity()/*, View.OnClickListener */ {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginEmail: EditText
     private lateinit var loginPassword: EditText
     private lateinit var loginButton: Button
 
     private val db = FirebaseFirestore.getInstance()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +36,22 @@ class LoginActivity : AppCompatActivity()/*, View.OnClickListener */ {
 
     private fun loginUser() {
         val users = db.collection("users")
-
-        users.document(loginEmail.text.toString()).get().addOnSuccessListener {document ->
+        users.document(loginEmail.text.toString()).get().addOnSuccessListener { document ->
             val dbPassword = document.getString("password")
-            if (dbPassword == loginPassword.text.toString()){
+            if (dbPassword == loginPassword.text.toString()) {
+                users.document(loginEmail.text.toString()).get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        val currentUser = documentSnapshot.toObject(User::class.java)!!
+                        startActivity(
+                            Intent(this, CalendarActivity::class.java).putExtra(
+                                TAG,
+                                currentUser.firstName + " " + currentUser.lastName
+                            )
+                        )
 
+                    }
                 //TODO we can make user class singleton so we don't have to read from db everytime
 
-                startActivity(Intent(this, CalendarActivity::class.java))
             }
 
 
@@ -56,6 +62,11 @@ class LoginActivity : AppCompatActivity()/*, View.OnClickListener */ {
             Log.w(TAG, "Invalid Login Information : ", e)
         }
 
+    }
+
+    companion object {
+
+        const val TAG = "LoginActivity"
     }
 
 }
