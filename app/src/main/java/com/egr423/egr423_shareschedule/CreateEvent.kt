@@ -1,22 +1,33 @@
 package com.egr423.egr423_shareschedule
 
+import android.app.DatePickerDialog
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_calendar.*
 import java.util.*
 
 
-class DailyView : AppCompatActivity {
+class DailyView : AppCompatActivity() {
 
-    Select user = dropmenu.userfriends
-    //TODO have the user get their friends and choose who they want to connect to
-    // TODO get the user information to connect with friend connect to the database from FireBase
-
-
-    /* Grab the user information and friends list from the database and add to the recyclerview.
-     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_calendar)
 
 
-    private lateinit var time
-    private lateinit var userfriends
-    private lateinit var availableTimeZone: SimpleTimeZone
+        //Calender
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+
+        //Button click to show createEvent
+        val event = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { datePicker, mYear, mMonth, mDay ->
+            //set to textView
+            date.setText("" + mDay + "/" + mMonth + "/" + mYear)
+        }, year, month, day)
+
+        event.show()
+    }
 
 }

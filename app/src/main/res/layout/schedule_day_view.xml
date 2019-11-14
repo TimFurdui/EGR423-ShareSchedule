@@ -3,4 +3,23 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Spinner
+        android:text = "Select time you want to meet"
+        android:id="@+id/friends"
+        android:layout_width="112dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Spinner
+        android:text = "Select time you want to meet"
+        android:id="@+id/time"
+        android:layout_width="112dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+
 </LinearLayout>
