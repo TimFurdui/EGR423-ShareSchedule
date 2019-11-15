@@ -43,6 +43,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.2.1'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.25.0'
+    testImplementation 'org.mockito:mockito-inline:2.25.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
