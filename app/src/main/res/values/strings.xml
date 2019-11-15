@@ -23,15 +23,4 @@
     <!-- THIS IS FOR MAIN PAGE -->
     <string name="app_description">Share Schedule allows you to compare your schedule with your friends and plan for events that are convenient for everyone!</string>
 
-    <!-- THIS IS FOR Daily PAGE -->
-    <string name="list">8:00am</string>
-
-    <!-- THIS IS FOR Creating an Event PAGE -->
-    <string name="friends"> Select Friends</string>
-    <string name="time"> Select Times to meet </string>
-    
-
-
-
-
 </resources>
