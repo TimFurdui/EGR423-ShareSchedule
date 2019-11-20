@@ -48,7 +48,7 @@ class CalendarActivity : AppCompatActivity() {
 
     private fun handleEventButtonClick() {
         createEventButton.setOnClickListener {
-            startActivity(Intent(this, AddEvent::class.java).putExtra(EMAIL_TAG, userEmail))
+            startActivity(Intent(this, AddEventActivity::class.java).putExtra(EMAIL_TAG, userEmail))
         }
     }
 

@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:layout_margin="15dp"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".AddEventActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -33,10 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/event_time"
-            android:inputType="date"
             android:clickable="true"
             android:padding="25dp"
-            android:focusable="true"/>
+            android:focusable="true" />
 
         <EditText
             android:id="@+id/eventComments"
@@ -48,7 +47,7 @@
 
 
         <Button
-            android:id="@+id/register_submit_button"
+            android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
