@@ -10,16 +10,24 @@ class AddEvent : AppCompatActivity() {
     //    private lateinit var attendees : List<String>
     private lateinit var comments: EditText
 
-    var eventCreatorEmail: String = ""
+    private lateinit var eventCreatorEmail: String
+
 
 
     //TODO USE THIS ACTIVITY TO CREATE AN EVENT
-    //TODO WILL FIGURE OUT ATTENDEES LATER
+
+
+    //FOR ATTENDEES CAN ALERT THE USER AND IF THEY ACCEPT THEY WILL SHOW UP ON THE ATTENDEES
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_addevent)
+
         eventTitle = findViewById(R.id.eventName)
         eventTime = findViewById(R.id.eventTime)
         comments = findViewById(R.id.eventComments)
+        eventCreatorEmail = intent.getStringExtra(CalendarActivity.EMAIL_TAG)
+        println(eventCreatorEmail)
     }
 
 

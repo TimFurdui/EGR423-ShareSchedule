@@ -46,10 +46,8 @@ class LoginActivity : AppCompatActivity() {
                                 currentUser.firstName + " " + currentUser.lastName
                             ).putExtra(EMAIL_TAG, currentUser.email)
                         )
-
                     }
                 //TODO we can make user class singleton so we don't have to read from db everytime
-
             } else {
                 Toast.makeText(
                     this,
