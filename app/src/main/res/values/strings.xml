@@ -28,4 +28,5 @@
     <string name="event_title">Enter a name for the event: </string>
     <string name="event_comments">(Optional) Leave a comment: </string>
     <string name="event_time">Select a time for the event: </string>
+    <string name="create_event">Create event</string>
 </resources>

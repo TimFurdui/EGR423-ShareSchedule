@@ -42,29 +42,33 @@ class LoginActivity : AppCompatActivity() {
                         val currentUser = documentSnapshot.toObject(User::class.java)!!
                         startActivity(
                             Intent(this, CalendarActivity::class.java).putExtra(
-                                TAG,
+                                NAME_TAG,
                                 currentUser.firstName + " " + currentUser.lastName
-                            )
+                            ).putExtra(EMAIL_TAG, currentUser.email)
                         )
 
                     }
                 //TODO we can make user class singleton so we don't have to read from db everytime
 
+            } else {
+                Toast.makeText(
+                    this,
+                    "Invalid Email or Password!",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
             }
 
-
         }.addOnFailureListener { e ->
-
-            Toast.makeText(this, "Account information provided doesn't exist!", Toast.LENGTH_LONG)
-                .show()
-            Log.w(TAG, "Invalid Login Information : ", e)
+            Log.w(NAME_TAG, "Invalid Login Information : ", e)
         }
 
     }
 
     companion object {
 
-        const val TAG = "LoginActivity"
+        const val NAME_TAG = "LoginActivity.FullName"
+        const val EMAIL_TAG = "LoginActivity.Email"
     }
 
 }
