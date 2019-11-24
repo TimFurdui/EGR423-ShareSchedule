@@ -2,7 +2,6 @@ package com.egr423.egr423_shareschedule
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.app.TimePickerDialog
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -10,14 +9,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
 import java.lang.Exception
-import android.text.format.DateFormat
 import java.util.*
+
 
 class AddEventActivity : AppCompatActivity() {
 
@@ -45,7 +42,7 @@ class AddEventActivity : AppCompatActivity() {
         eventCreatorEmail = intent.getStringExtra(CalendarActivity.EMAIL_TAG)
 
         eventTimeInput.setOnClickListener {
-//            TimePickerFragment().show(supportFragmentManager, "timePicker")
+            //            TimePickerFragment().show(supportFragmentManager, "timePicker")
             setDatePicker(eventTimeInput)
         }
         submitButton.setOnClickListener { addEventToDb() }
@@ -93,54 +90,40 @@ class AddEventActivity : AppCompatActivity() {
     }
 
 
-//    class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
-//
-//        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//            val c = Calendar.getInstance()
-//            val hour = c.get(Calendar.HOUR_OF_DAY)
-//            val minute = c.get(Calendar.MINUTE)
-//
-//            return TimePickerDialog(
-//                activity,
-//                this,
-//                hour,
-//                minute,
-//                DateFormat.is24HourFormat(activity)
-//            )
-//        }
-//
-//        override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-//            //Do something with time chosen by user
-//        }
-//    }
-//Used to create popup Calendar
-@SuppressLint("NewApi")
-private fun setDatePicker(dateEditText: EditText) {
-    val myCalendar = Calendar.getInstance()
+    //Used to create popup Calendar
+    @SuppressLint("NewApi")
+    private fun setDatePicker(dateEditText: EditText) {
+        val currentDate = Calendar.getInstance()
+        var date = Calendar.getInstance()
 
-    val datePickerOnDataSetListener =
-        DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            myCalendar.set(Calendar.YEAR, year)
-            myCalendar.set(Calendar.MONTH, monthOfYear)
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateTextField(myCalendar, dateEditText)
-        }
-
-    dateEditText.setOnClickListener {
         DatePickerDialog(
-            this@AddEventActivity,
-            datePickerOnDataSetListener,
-            myCalendar.get(Calendar.YEAR),
-            myCalendar.get(Calendar.MONTH),
-            myCalendar.get(Calendar.DAY_OF_MONTH)
+            this,
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                date.set(year, monthOfYear, dayOfMonth)
+                updateTextField(date, eventTimeInput)
+                TimePickerDialog(
+                    this,
+                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                        date.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        date.set(Calendar.MINUTE, minute)
+                        Log.v(TAG, "The choosen one " + date.getTime())
+                        updateTextField(date, eventTimeInput)
+                    },
+                    currentDate.get(Calendar.HOUR_OF_DAY),
+                    currentDate.get(Calendar.MINUTE),
+                    false
+                ).show()
+            },
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DATE)
+
         ).show()
     }
 
-}
-
     @SuppressLint("NewApi")
     private fun updateTextField(myCalendar: Calendar, dateEditText: EditText) {
-        val myFormat = "dd-MM-yyyy"
+        val myFormat = "dd-MM-yyyy HH:mm"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         dateEditText.setText(sdf.format(myCalendar.time))
     }
