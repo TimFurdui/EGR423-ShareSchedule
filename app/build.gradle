@@ -41,8 +41,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.firebase:firebase-firestore:21.2.1'
+    implementation 'com.google.android.material:material:1.2.0-alpha01'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.25.0'
+    testImplementation 'org.mockito:mockito-inline:2.25.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

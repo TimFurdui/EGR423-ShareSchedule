@@ -23,4 +23,10 @@
     <!-- THIS IS FOR MAIN PAGE -->
     <string name="app_description">Share Schedule allows you to compare your schedule with your friends and plan for events that are convenient for everyone!</string>
 
+    <!-- THIS IS FOR EVENT PAGE -->
+    <string name="event">Create a new event below!</string>
+    <string name="event_title">Enter a name for the event: </string>
+    <string name="event_comments">(Optional) Leave a comment: </string>
+    <string name="event_time">Select a time for the event: </string>
+    <string name="create_event">Create event</string>
 </resources>

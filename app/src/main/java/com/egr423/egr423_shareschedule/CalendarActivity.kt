@@ -1,6 +1,8 @@
 package com.egr423.egr423_shareschedule
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
@@ -11,29 +13,32 @@ class CalendarActivity : AppCompatActivity() {
 
 
     private lateinit var calendar: CalendarView
-    private lateinit var name: TextView
+    private lateinit var userName: TextView
+    private lateinit var createEventButton: Button
+    private lateinit var userEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
 
-        name = findViewById(R.id.nameOfUser)
+        userName = findViewById(R.id.nameOfUser)
         populateUserData()
         calendar = findViewById(R.id.calendarView)
+        createEventButton = findViewById(R.id.createEventButton)
         createCalendar()
+        handleEventButtonClick()
     }
 
 
     private fun populateUserData() {
-        name.text = intent.getStringExtra(LoginActivity.TAG)
-
+        userName.text = intent.getStringExtra(LoginActivity.NAME_TAG)
+        userEmail = intent.getStringExtra(LoginActivity.EMAIL_TAG)
     }
 
     private fun createCalendar() {
 
         //TODO can make this change to open a new fragment upon click and to create event and populate in db
-        
         calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val msg = "Selected date is" + dayOfMonth + "/" + (month + 1) + "/" + year
             Toast.makeText(this@CalendarActivity, msg, Toast.LENGTH_SHORT).show()
@@ -41,4 +46,13 @@ class CalendarActivity : AppCompatActivity() {
 
     }
 
+    private fun handleEventButtonClick() {
+        createEventButton.setOnClickListener {
+            startActivity(Intent(this, AddEventActivity::class.java).putExtra(EMAIL_TAG, userEmail))
+        }
+    }
+
+    companion object {
+        const val EMAIL_TAG = "CalendarActivity.Email"
+    }
 }
