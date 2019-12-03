@@ -15,7 +15,6 @@ class CalendarActivity : AppCompatActivity() {
     private lateinit var calendar: CalendarView
     private lateinit var userName: TextView
     private lateinit var createEventButton: Button
-    private lateinit var userEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -23,17 +22,11 @@ class CalendarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_calendar)
 
         userName = findViewById(R.id.nameOfUser)
-        populateUserData()
+        userName.text = CurrentUserSingleton.firstName + " " + CurrentUserSingleton.lastName
         calendar = findViewById(R.id.calendarView)
         createEventButton = findViewById(R.id.createEventButton)
         createCalendar()
         handleEventButtonClick()
-    }
-
-
-    private fun populateUserData() {
-        userName.text = intent.getStringExtra(LoginActivity.NAME_TAG)
-        userEmail = intent.getStringExtra(LoginActivity.EMAIL_TAG)
     }
 
     private fun createCalendar() {
@@ -48,11 +41,8 @@ class CalendarActivity : AppCompatActivity() {
 
     private fun handleEventButtonClick() {
         createEventButton.setOnClickListener {
-            startActivity(Intent(this, AddEventActivity::class.java).putExtra(EMAIL_TAG, userEmail))
+            startActivity(Intent(this, AddEventActivity::class.java))
         }
     }
 
-    companion object {
-        const val EMAIL_TAG = "CalendarActivity.Email"
-    }
 }

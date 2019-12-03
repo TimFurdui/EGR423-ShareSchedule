@@ -18,7 +18,7 @@ import java.util.*
 
 class AddEventActivity : AppCompatActivity() {
 
-    private val TAG = "AddEvent"
+    private val TAG = "AddEventActivity"
 
     private lateinit var eventTitle: EditText
     private lateinit var eventTimeInput: EditText
@@ -39,7 +39,8 @@ class AddEventActivity : AppCompatActivity() {
         eventTimeInput = findViewById(R.id.eventTime)
         comments = findViewById(R.id.eventComments)
         submitButton = findViewById(R.id.submit_button)
-        eventCreatorEmail = intent.getStringExtra(CalendarActivity.EMAIL_TAG)
+//        eventCreatorEmail = intent.getStringExtra(CalendarActivity.EMAIL_TAG)
+        eventCreatorEmail = CurrentUserSingleton.userEmail
 
         eventTimeInput.setOnClickListener {
             //            TimePickerFragment().show(supportFragmentManager, "timePicker")

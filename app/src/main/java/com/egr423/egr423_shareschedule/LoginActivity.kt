@@ -40,11 +40,19 @@ class LoginActivity : AppCompatActivity() {
                 users.document(loginEmail.text.toString()).get()
                     .addOnSuccessListener { documentSnapshot ->
                         val currentUser = documentSnapshot.toObject(User::class.java)!!
+
+                        //Store user data in Singleton class to be easily accessed across application
+                        CurrentUserSingleton.userEmail = currentUser.email.toString()
+                        CurrentUserSingleton.firstName = currentUser.firstName.toString()
+                        CurrentUserSingleton.lastName= currentUser.lastName.toString()
+
                         startActivity(
-                            Intent(this, CalendarActivity::class.java).putExtra(
-                                NAME_TAG,
-                                currentUser.firstName + " " + currentUser.lastName
-                            ).putExtra(EMAIL_TAG, currentUser.email)
+                            Intent(this, CalendarActivity::class.java)
+
+//                                .putExtra(
+//                                NAME_TAG,
+//                                currentUser.firstName + " " + currentUser.lastName
+//                            ).putExtra(EMAIL_TAG, currentUser.email)
                         )
                     }
                 //TODO we can make user class singleton so we don't have to read from db everytime

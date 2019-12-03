@@ -29,4 +29,12 @@
     <string name="event_comments">(Optional) Leave a comment: </string>
     <string name="event_time">Select a time for the event: </string>
     <string name="create_event">Create event</string>
+
+    <!-- THIS IS FOR EVENT ITEM   -->
+    <string name="eventName"> Event Name </string>
+    <string name="eventTime"> Time </string>
+    <string name="eventComments"> Comments </string>
+    <string name="eventAttendees"> Attendees </string>
+    <string name="eventOwner"> Owner </string>
+
 </resources>
