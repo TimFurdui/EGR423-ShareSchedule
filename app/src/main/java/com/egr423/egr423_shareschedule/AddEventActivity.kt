@@ -22,6 +22,7 @@ class AddEventActivity : AppCompatActivity() {
 
     private lateinit var eventTitle: EditText
     private lateinit var eventTimeInput: EditText
+    private lateinit var eventDateInput: EditText
     //    private lateinit var attendees : List<String>
     private lateinit var comments: EditText
     private lateinit var eventCreatorEmail: String
@@ -39,11 +40,9 @@ class AddEventActivity : AppCompatActivity() {
         eventTimeInput = findViewById(R.id.eventTime)
         comments = findViewById(R.id.eventComments)
         submitButton = findViewById(R.id.submit_button)
-//        eventCreatorEmail = intent.getStringExtra(CalendarActivity.EMAIL_TAG)
         eventCreatorEmail = CurrentUserSingleton.userEmail
 
         eventTimeInput.setOnClickListener {
-            //            TimePickerFragment().show(supportFragmentManager, "timePicker")
             setDatePicker(eventTimeInput)
         }
         submitButton.setOnClickListener { addEventToDb() }
@@ -68,10 +67,7 @@ class AddEventActivity : AppCompatActivity() {
                     val currentEvent = hashMapOf(
                         "eventTitle" to eventTitle.text.toString(),
                         //TODO for event time need to make it input hour/minute as well
-                        "eventTime" to eventTimeInput.text.toString()/*SimpleDateFormat(
-                            "dd-MM-yyyy",
-                            Locale.US
-                        ).parse(eventTime.text.toString())*/,
+                        "eventTime" to eventTimeInput.text.toString(),
                         "eventCreatorEmail" to eventCreatorEmail,
                         "comments" to comments.text.toString(),
                         //TODO populate this with emails, (Create function that sends alert to user if accepted add them to attendees)

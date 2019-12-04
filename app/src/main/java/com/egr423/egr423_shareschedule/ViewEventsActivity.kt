@@ -24,7 +24,10 @@ class ViewEventsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_viewevents)
         eventDailyView = findViewById(R.id.list_view)
+
+        getEvents()
 
     }
 
@@ -36,12 +39,13 @@ class ViewEventsActivity : AppCompatActivity() {
         var events = db.collection("users").document(CurrentUserSingleton.userEmail)
             .collection("calendarEvents")
 
-        events.whereEqualTo("time", "November 19, 2019").get().addOnSuccessListener { documents ->
+        events.whereGreaterThanOrEqualTo("eventTime", "24-11-2019").get().addOnSuccessListener { documents ->
 
             for (document in documents) {
                 listOfEvents.add(document.toObject(Event::class.java))
+                Log.w(TAG, listOfEvents[0].eventCreatorEmail)
+                Log.w(TAG, listOfEvents[0].eventTitle)
             }
-
         }.addOnFailureListener {
             Log.w(TAG, "Invalid TIME")
         }
