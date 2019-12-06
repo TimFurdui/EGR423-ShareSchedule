@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:id="@+id/parent_listitem_layout">
 
 
     <TextView
         android:id="@+id/eventItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:gravity="start"
+        android:paddingTop="20dp"
         android:text="@string/eventName"
         />
 
@@ -19,40 +19,9 @@
         android:id="@+id/eventItemDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:gravity="end"
-        android:text="@string/eventTime"
-        />
-
-
-    <!--    <TextView-->
-<!--        android:id="@+id/eventItemOwner"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="10dp"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="@string/eventOwner"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/eventItemAttendees"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="10dp"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="@string/eventAttendees"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/eventItemComments"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="10dp"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="@string/eventComments"/>-->
-
+        android:paddingTop="20dp"
+        android:text="@string/eventTime" />
 
 </LinearLayout>

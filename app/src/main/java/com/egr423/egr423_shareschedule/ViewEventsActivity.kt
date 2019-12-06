@@ -3,11 +3,16 @@ package com.egr423.egr423_shareschedule
 import android.os.Bundle
 import android.util.Log
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.DialogTitle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ViewEventsActivity : AppCompatActivity() {
 
 
@@ -15,40 +20,53 @@ class ViewEventsActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
 
     //Views
-    private lateinit var eventDailyView: ListView
+    private lateinit var eventDailyView: RecyclerView
 
     //Adapter
-    private lateinit var eventAdapter: EventsAdapter
+    private lateinit var eventAdapter: RecyclerEventsAdapter
     private lateinit var eventArrayList: Array<Event>
-
+    private lateinit var currentDate: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewevents)
-        eventDailyView = findViewById(R.id.list_view)
-
+        eventDailyView = findViewById(R.id.recycler_view)
+        currentDate = findViewById(R.id.currentDate)
         getEvents()
-
     }
 
-    //TODO should be enough to get started on adapter
+    //TODO send in date clicked from calendarActivity as an Extra
     private fun getEvents() {
 
-        var listOfEvents = ArrayList<Event>()
+        val date = SimpleDateFormat(
+            "dd-MM-yyyy",
+            Locale.US
+        ).parse(intent.getStringExtra(CalendarActivity.DATETAG))
 
-        var events = db.collection("users").document(CurrentUserSingleton.userEmail)
+        Log.w(TAG, "BEFORE QUERY")
+
+        var eventsDocumentList = db.collection("users").document(CurrentUserSingleton.userEmail)
             .collection("calendarEvents")
 
-        events.whereGreaterThanOrEqualTo("eventTime", "24-11-2019").get().addOnSuccessListener { documents ->
+        eventsDocumentList.whereEqualTo("eventTime", date)
+            .get()
+            .addOnSuccessListener { eventDocuments ->
+                var listOfEvents = ArrayList<Event>()
+                for (event in eventDocuments) {
+                    listOfEvents.add(event.toObject(Event::class.java))
+                }
 
-            for (document in documents) {
-                listOfEvents.add(document.toObject(Event::class.java))
-                Log.w(TAG, listOfEvents[0].eventCreatorEmail)
-                Log.w(TAG, listOfEvents[0].eventTitle)
+
+                var recyclerView: RecyclerView = findViewById(R.id.recycler_view)
+                eventAdapter = RecyclerEventsAdapter(this, listOfEvents)
+                recyclerView.adapter = eventAdapter
+                recyclerView.layoutManager = LinearLayoutManager(this)
+                currentDate.setText(date.toString())
+                //TODO deal with logic in here
+
+            }.addOnFailureListener {
+                Log.w(TAG, "Invalid TIME")
             }
-        }.addOnFailureListener {
-            Log.w(TAG, "Invalid TIME")
-        }
     }
 
     companion object {

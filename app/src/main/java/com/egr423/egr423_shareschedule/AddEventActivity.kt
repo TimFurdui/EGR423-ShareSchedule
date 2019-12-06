@@ -23,7 +23,7 @@ class AddEventActivity : AppCompatActivity() {
     private lateinit var eventTitle: EditText
     private lateinit var eventTimeInput: EditText
     private lateinit var eventDateInput: EditText
-    //    private lateinit var attendees : List<String>
+//    private lateinit var attendees: List<String>
     private lateinit var comments: EditText
     private lateinit var eventCreatorEmail: String
     private lateinit var submitButton: Button
@@ -50,6 +50,7 @@ class AddEventActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("NewApi")
     private fun addEventToDb() {
         //Check if event in database if it is tell user choose diff name If not then create event
         val eventList =
@@ -64,14 +65,20 @@ class AddEventActivity : AppCompatActivity() {
                     ).show()
                     Log.w(TAG, "Event already exists with event name : ${eventTitle.text}")
                 } else {
+
+
+                    //TODO MIGHT NEED TO CHANGE THE TYPE OF DATA BEING USED
                     val currentEvent = hashMapOf(
                         "eventTitle" to eventTitle.text.toString(),
                         //TODO for event time need to make it input hour/minute as well
-                        "eventTime" to eventTimeInput.text.toString(),
+                        "eventTime" to SimpleDateFormat(
+                            "dd-MM-yyyy",
+                            Locale.US
+                        ).parse(eventTimeInput.text.toString()),
                         "eventCreatorEmail" to eventCreatorEmail,
                         "comments" to comments.text.toString(),
                         //TODO populate this with emails, (Create function that sends alert to user if accepted add them to attendees)
-                        "attendees" to "test@gmail.com"
+                        "attendees" to listOf("Attendee#1@gmail.com", "Attendee#2@gmail.com")
                     )
                     //THIS IS THE PART THAT ADDS TO THE DB
                     try {

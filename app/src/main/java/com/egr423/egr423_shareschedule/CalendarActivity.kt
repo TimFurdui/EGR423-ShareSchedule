@@ -39,12 +39,14 @@ class CalendarActivity : AppCompatActivity() {
         //TODO can make this change to open a new fragment upon click and to create event and populate in db
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
 
-            val dateSelected  = "${getMonthName(month)} $dayOfMonth, $year"
+            val dateSelected = "$dayOfMonth-${month + 1}-$year"
 
-            val msg = "Selected date is $dateSelected"
-
-            Toast.makeText(this@CalendarActivity, msg, Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, ViewEventsActivity::class.java))
+            startActivity(
+                Intent(this, ViewEventsActivity::class.java).putExtra(
+                    DATETAG,
+                    dateSelected
+                )
+            )
         }
 
     }
@@ -58,5 +60,10 @@ class CalendarActivity : AppCompatActivity() {
 
     private fun getMonthName(monthIndex: Int): String {
         return DateFormatSymbols().months[monthIndex].toString()
+    }
+
+    companion object {
+        val TAG = "CalendarActivity"
+        val DATETAG = "CalendarActivityDate"
     }
 }
