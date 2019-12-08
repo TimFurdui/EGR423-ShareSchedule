@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">EGR423-ShareSchedule</string>
 
-    <!-- THIS IS GENERIC APP NAME -->
+    <!-- GENERIC APP NAME -->
     <string name="appNameTitle">Share Schedule</string>
 
-    <!-- THIS IS FOR LOGIN -->
+    <!-- LOGIN -->
     <string name="login_button">Login</string>
     <string name="google_Login_button">Login with Google</string>
 
-    <!-- THIS IS FOR REGISTER -->
+    <!-- REGISTER -->
     <string name="register_button">Register</string>
     <string name="firstNameField">Please enter first name:</string>
     <string name="lastNameField">Please enter last name:</string>
@@ -17,24 +17,30 @@
     <string name="dateOfBirthField">Select your date of birth:</string>
     <string name="shareScheduleRegistrationPage">Share Schedule Registration Page</string>
 
-    <!-- THIS IS GENERIC SUBMIT BUTTON -->
+    <!-- GENERIC SUBMIT BUTTON -->
     <string name="submit_button">Submit</string>
 
-    <!-- THIS IS FOR MAIN PAGE -->
+    <!-- MAIN PAGE -->
     <string name="app_description">Share Schedule allows you to compare your schedule with your friends and plan for events that are convenient for everyone!</string>
 
-    <!-- THIS IS FOR EVENT PAGE -->
+    <!-- EVENT PAGE -->
     <string name="event">Create a new event below!</string>
     <string name="event_title">Enter a name for the event: </string>
     <string name="event_comments">(Optional) Leave a comment: </string>
     <string name="event_time">Select a time for the event: </string>
-    <string name="create_event">Create event</string>
 
-    <!-- THIS IS FOR EVENT ITEM   -->
-    <string name="eventName"> Event Name </string>
+    <!-- CALENDAR PAGE-->
+    <string name="create_event">Create event</string>
+    <string name="view_friends">Friends list</string>
+
+    <!-- EVENT ITEM   -->
+    <string name="eventName"> Event name </string>
     <string name="eventTime"> Time </string>
     <string name="eventComments"> Comments </string>
     <string name="eventAttendees"> Attendees </string>
     <string name="eventOwner"> Owner </string>
 
+    <!-- VIEW FRIENDS -->
+    <string name = "friendsActivityTitle"> View friends </string>
+    <string name = "friendsActivityEnterFriend"> Enter friend email: </string>
 </resources>

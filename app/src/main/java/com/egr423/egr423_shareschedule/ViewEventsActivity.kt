@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -20,22 +21,22 @@ class ViewEventsActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
 
     //Views
-    private lateinit var eventDailyView: RecyclerView
+    private lateinit var eventView: RecyclerView
 
     //Adapter
     private lateinit var eventAdapter: RecyclerEventsAdapter
-    private lateinit var eventArrayList: Array<Event>
+
+//    private lateinit var eventArrayList: Array<Event>
     private lateinit var currentDate: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewevents)
-        eventDailyView = findViewById(R.id.recycler_view)
+        eventView = findViewById(R.id.eventRecyclerView)
         currentDate = findViewById(R.id.currentDate)
         getEvents()
     }
 
-    //TODO send in date clicked from calendarActivity as an Extra
     private fun getEvents() {
 
         val date = SimpleDateFormat(
@@ -57,10 +58,11 @@ class ViewEventsActivity : AppCompatActivity() {
                 }
 
 
-                var recyclerView: RecyclerView = findViewById(R.id.recycler_view)
+                var recyclerView: RecyclerView = findViewById(R.id.eventRecyclerView)
                 eventAdapter = RecyclerEventsAdapter(this, listOfEvents)
                 recyclerView.adapter = eventAdapter
                 recyclerView.layoutManager = LinearLayoutManager(this)
+
                 currentDate.setText(date.toString())
                 //TODO deal with logic in here
 
@@ -68,6 +70,10 @@ class ViewEventsActivity : AppCompatActivity() {
                 Log.w(TAG, "Invalid TIME")
             }
     }
+
+//    private fun getMonthName(monthIndex: Int): String {
+//        return DateFormatSymbols().months[monthIndex].toString()
+//    }
 
     companion object {
 

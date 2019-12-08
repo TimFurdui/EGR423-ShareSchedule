@@ -22,7 +22,6 @@ class AddEventActivity : AppCompatActivity() {
 
     private lateinit var eventTitle: EditText
     private lateinit var eventTimeInput: EditText
-    private lateinit var eventDateInput: EditText
 //    private lateinit var attendees: List<String>
     private lateinit var comments: EditText
     private lateinit var eventCreatorEmail: String

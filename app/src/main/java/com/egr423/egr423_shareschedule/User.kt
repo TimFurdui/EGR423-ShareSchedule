@@ -4,4 +4,4 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 import java.util.*
 
 @IgnoreExtraProperties
-data class User (var firstName: String? = null, var lastName: String? = null, var email: String? = null, var password: String? = null, var birthDate: Date? = null, var userPrivilege: Int? = null/*, var userComments: Array<String>? = null*/)
+data class User (var firstName: String? = null, var lastName: String? = null, var email: String? = null, var password: String? = null, var birthDate: Date? = null, var userComments: List<String>? = null, var userFriends: List<String>? = null)

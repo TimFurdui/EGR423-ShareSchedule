@@ -15,11 +15,10 @@ import java.text.DateFormatSymbols
 class CalendarActivity : AppCompatActivity() {
 
 
-    //TODO DELETE AFTER TEST
-
     private lateinit var calendar: CalendarView
     private lateinit var userName: TextView
     private lateinit var createEventButton: Button
+    private lateinit var viewFriendButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -30,8 +29,10 @@ class CalendarActivity : AppCompatActivity() {
         userName.text = CurrentUserSingleton.firstName + " " + CurrentUserSingleton.lastName
         calendar = findViewById(R.id.calendarView)
         createEventButton = findViewById(R.id.createEventButton)
+        viewFriendButton = findViewById(R.id.viewFriendsButton)
         createCalendar()
         handleEventButtonClick()
+        handleFriendButtonClick()
     }
 
     private fun createCalendar() {
@@ -58,8 +59,10 @@ class CalendarActivity : AppCompatActivity() {
         }
     }
 
-    private fun getMonthName(monthIndex: Int): String {
-        return DateFormatSymbols().months[monthIndex].toString()
+    private fun handleFriendButtonClick() {
+        viewFriendButton.setOnClickListener {
+            startActivity(Intent(this, ViewFriendsActivity::class.java))
+        }
     }
 
     companion object {

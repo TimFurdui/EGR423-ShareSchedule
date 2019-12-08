@@ -116,8 +116,8 @@ class RegisterActivity : AppCompatActivity() {
                             "dd-MM-yyyy",
                             Locale.US
                         ).parse(date.text.toString()),
-                        "userPrivilege" to 0,
-                        "userComments" to listOf("")
+                        "userComments" to listOf<String>(),
+                        "userFriends" to listOf<String>()
                     )
 
                     //Create a new document for the User with the ID as Email of user
@@ -129,6 +129,7 @@ class RegisterActivity : AppCompatActivity() {
                                     TAG,
                                     "DocumentSnapshot added with ID as Email: $email"
                                 )
+                                Toast.makeText(this, "Account Created, hit back and log in!", Toast.LENGTH_LONG).show()
                             }.addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
                     } catch (e: Exception) {
                         e.printStackTrace()

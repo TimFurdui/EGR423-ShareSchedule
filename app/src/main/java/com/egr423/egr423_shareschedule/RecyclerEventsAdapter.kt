@@ -20,7 +20,7 @@ class RecyclerEventsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.dailyview_list_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.event_list_item, parent, false)
         var holder: ViewHolder = ViewHolder(view)
         return holder
     }
@@ -48,13 +48,13 @@ class RecyclerEventsAdapter(
                 super(itemView) {
             eventTimeDate = itemView.findViewById(R.id.eventItemDate)
             eventTitle = itemView.findViewById(R.id.eventItemName)
-            parentLayout = itemView.findViewById(R.id.parent_listitem_layout)
+            parentLayout = itemView.findViewById(R.id.eventParent_listItem_layout)
         }
     }
 
 
     companion object {
-        private val TAG = "EventsAdapter"
+        private val TAG = "RecyclerEventsAdapter"
     }
 
 }
