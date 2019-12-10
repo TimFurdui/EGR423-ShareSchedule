@@ -22,7 +22,7 @@ class AddEventActivity : AppCompatActivity() {
 
     private lateinit var eventTitle: EditText
     private lateinit var eventTimeInput: EditText
-//    private lateinit var attendees: List<String>
+    //    private lateinit var attendees: List<String>
     private lateinit var comments: EditText
     private lateinit var eventCreatorEmail: String
     private lateinit var submitButton: Button
@@ -44,7 +44,18 @@ class AddEventActivity : AppCompatActivity() {
         eventTimeInput.setOnClickListener {
             setDatePicker(eventTimeInput)
         }
-        submitButton.setOnClickListener { addEventToDb() }
+        submitButton.setOnClickListener {
+            if (eventTitle.text.isNotEmpty() && eventTimeInput.text.isNotEmpty()) {
+
+                addEventToDb()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Please make sure none of the above fields are empty!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
 
     }
 

@@ -2,6 +2,7 @@ package com.egr423.egr423_shareschedule
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
@@ -47,9 +48,21 @@ class RegisterActivity : AppCompatActivity() {
 
         //Set on click listener to call write to DB function
         submitButton.setOnClickListener {
-            //Check to make sure there are no users registered with that email
-            addUserToDb()
 
+            if (firstName.text.isNotEmpty()
+                && lastName.text.isNotEmpty()
+                && email.text.isNotEmpty()
+                && password.text.isNotEmpty()
+                && date.text.isNotEmpty()
+            ) {
+                addUserToDb()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Please make sure none of the above fields are empty!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }
@@ -91,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
 
         val userExistQuery = db.collection("users")
 
-        userExistQuery.document(email.text.toString()).get()
+        userExistQuery.document(email.text.toString().toLowerCase()).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
 
@@ -110,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
                     val user = hashMapOf(
                         "firstName" to firstName.text.toString(),
                         "lastName" to lastName.text.toString(),
-                        "email" to email.text.toString(),
+                        "email" to email.text.toString().toLowerCase(),
                         "password" to password.text.toString(),
                         "birthDate" to SimpleDateFormat(
                             "dd-MM-yyyy",
@@ -123,13 +136,18 @@ class RegisterActivity : AppCompatActivity() {
                     //Create a new document for the User with the ID as Email of user
                     //useful to query db and check if user already exists
                     try {
-                        db.collection("users").document(email.text.toString()).set(user)
+                        db.collection("users").document(email.text.toString().toLowerCase()).set(user)
                             .addOnSuccessListener {
                                 Log.d(
                                     TAG,
                                     "DocumentSnapshot added with ID as Email: $email"
                                 )
-                                Toast.makeText(this, "Account Created, hit back and log in!", Toast.LENGTH_LONG).show()
+                                startActivity(Intent(this, LoginActivity::class.java))
+                                Toast.makeText(
+                                    this,
+                                    "Account Created",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }.addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
                     } catch (e: Exception) {
                         e.printStackTrace()

@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
-import org.jetbrains.anko.doAsync
 
 class RecyclerFriendsAdapter(
     contextParameterVal: Context,
@@ -18,7 +17,7 @@ class RecyclerFriendsAdapter(
 
     var context: Context = contextParameterVal
     var friendEmailsList: ArrayList<String>? = friendsParameterValue
-    var friendNameList: ArrayList<String>? = null
+//    var friendNameList: ArrayList<String>? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,8 +29,16 @@ class RecyclerFriendsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.w(TAG, "onBindViewHolder: called.")
-        holder.friendName.setText(friendNameList?.get(position))
+//        holder.friendName.setText(friendNameList?.get(position))
         holder.friendEmail.setText(friendEmailsList?.get(position))
+
+        holder.parentLayout.setOnClickListener {
+
+            //TODO OPEN ANOTHER CALENDAR
+            //TODO LET USER SELECT DATE
+            //TODO QUERY DB AND SEE IF IT TIMES WORK FOR BOTH
+            //TODO IF TIME WORKS FOR BOTH THEN ADD TO BOTH
+        }
     }
 
 
@@ -42,14 +49,14 @@ class RecyclerFriendsAdapter(
 
     inner class ViewHolder : RecyclerView.ViewHolder {
 
-        var friendName: TextView
+        //        var friendName: TextView
         var friendEmail: TextView
         var parentLayout: LinearLayout
 
 
         constructor(itemView: View) :
                 super(itemView) {
-            friendName = itemView.findViewById(R.id.friendItemName)
+//            friendName = itemView.findViewById(R.id.friendItemName)
             friendEmail = itemView.findViewById(R.id.friendItemEmail)
             parentLayout = itemView.findViewById(R.id.friendParent_listItem_layout)
         }
@@ -60,32 +67,30 @@ class RecyclerFriendsAdapter(
         private val TAG = "RecyclerFriendsAdapter"
     }
 
-    val db = FirebaseFirestore.getInstance()
+//    val db = FirebaseFirestore.getInstance()
 
 
-    fun queryDbForName() {
-
-        doAsync {
-
-            Log.w("FRIEND EMAIL LIST", friendEmailsList.toString())
-            var friendName: ArrayList<String>? = null
-
-            for (string in friendEmailsList!!) {
-                db.collection("users").document(string).get().addOnSuccessListener { document ->
-
-                    val firstName = document.get("firstName") as String?
-                    val lastName = document.get("lastName") as String?
-                    val name = "$firstName $lastName"
-
-                    friendName?.add(name)
-
-                    Log.w(TAG, document.toString())
-                    Log.w("NAME TEST", name)
-                    Log.w("LIST TEST ", friendName.toString())
-                }
-            }
-        }
-
-    }
+//    fun queryDbForName() {
+//
+//
+//            Log.w("FRIEND EMAIL LIST", friendEmailsList.toString())
+//            var friendName: ArrayList<String>? = null
+//
+//            for (string in friendEmailsList!!) {
+//                db.collection("users").document(string).get().addOnSuccessListener { document ->
+//
+//                    val firstName = document.get("firstName") as String?
+//                    val lastName = document.get("lastName") as String?
+//                    val name = "$firstName $lastName"
+//
+//                    friendName?.add(name)
+//
+//                    Log.w(TAG, document.toString())
+//                    Log.w("NAME TEST", name)
+//                    Log.w("LIST TEST ", friendName.toString())
+//                }
+//            }
+//
+//    }
 
 }

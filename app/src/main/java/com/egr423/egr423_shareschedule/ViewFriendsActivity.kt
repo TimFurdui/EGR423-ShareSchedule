@@ -33,8 +33,17 @@ class ViewFriendsActivity : AppCompatActivity() {
         addFriendButton = findViewById(R.id.submitFriendButton)
 
         addFriendButton.setOnClickListener {
-            checkIfEmailExists()
+            if (addFriendText.text.isNotEmpty()) {
+                checkIfEmailExists()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Friend field is empty, please enter an email and try again.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
+
         getFriends()
     }
 
@@ -49,14 +58,14 @@ class ViewFriendsActivity : AppCompatActivity() {
 
     private fun getFriends() {
 
-        val userQuery = db.collection("users").document(CurrentUserSingleton.userEmail).get()
+        db.collection("users").document(CurrentUserSingleton.userEmail).get()
             .addOnSuccessListener {
                 try {
                     val friendsList = it.get("userFriends") as ArrayList<String>
                     var recyclerView: RecyclerView = findViewById(R.id.friendsRecyclerView)
                     friendAdapter = RecyclerFriendsAdapter(this, friendsList)
                     recyclerView.adapter = friendAdapter
-                    friendAdapter.queryDbForName()
+//                    friendAdapter.queryDbForName()
                     recyclerView.layoutManager = LinearLayoutManager(this)
 
                 } catch (e: TypeCastException) {
