@@ -39,10 +39,10 @@ class ViewEventsActivity : AppCompatActivity() {
 
     private fun getEvents() {
 
-        val dbDateQuery = SimpleDateFormat(
-            "dd-MM-yyyy hh:mm",
-            Locale.US
-        ).parse(intent.getStringExtra(CalendarActivity.DATETAG))
+//        val date = SimpleDateFormat(
+//            "dd-MM-yyyy hh:mm",
+//            Locale.US
+//        ).parse(intent.getStringExtra(CalendarActivity.DATETAG))
 
         val date = SimpleDateFormat(
             "dd-MM-yyyy",
@@ -52,14 +52,22 @@ class ViewEventsActivity : AppCompatActivity() {
         var eventsDocumentList = db.collection("users").document(CurrentUserSingleton.userEmail)
             .collection("calendarEvents")
 
+//        var allEvents = eventsDocumentList.get().addOnSuccessListener {eventsList ->
+//
+//            for (event in eventsList){
+//                if (event.get("eventTime"))
+//            }
+//
+//        }
+
         //TODO IN ORDER TO FIX THE TIME I CHANGED THE EVENTTIME TO AN ARRAY SO WE CAN USE THE ARRAYCONTAINS AND QUERY FOR THE DATE
-        eventsDocumentList.whereEqualTo("eventTime", date)
-            .get()
+        eventsDocumentList.whereArrayContains("eventDaysArray", date).get()
             .addOnSuccessListener { eventDocuments ->
                 var listOfEvents = ArrayList<Event>()
-                for ((i, event) in eventDocuments.withIndex()) {
+                Log.w(TAG, "Before Query")
+                for (event in eventDocuments) {
                     listOfEvents.add(event.toObject(Event::class.java))
-                    Log.w(TAG, listOfEvents[i].toString())
+                    Log.w(TAG, event.toString())
                 }
                 var recyclerView: RecyclerView = findViewById(R.id.eventRecyclerView)
                 eventAdapter = RecyclerEventsAdapter(this, listOfEvents)
@@ -71,6 +79,29 @@ class ViewEventsActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 Log.w(TAG, "Invalid TIME")
             }
+
+
+//        eventsDocumentList.whereEqualTo("eventTime", date)
+//            .get()
+//            .addOnSuccessListener { eventDocuments ->
+//                var listOfEvents = ArrayList<Event>()
+//
+//
+//                for (event in eventDocuments) {
+//                    Log.w(TAG, event["eventTime"].toString())
+//                    listOfEvents.add(event.toObject(Event::class.java))
+//                }
+//
+//                var recyclerView: RecyclerView = findViewById(R.id.eventRecyclerView)
+//                eventAdapter = RecyclerEventsAdapter(this, listOfEvents)
+//                recyclerView.adapter = eventAdapter
+//                recyclerView.layoutManager = LinearLayoutManager(this)
+//
+//                currentDate.setText(date.toString())
+//
+//            }.addOnFailureListener {
+//                Log.w(TAG, "Invalid TIME")
+//            }
     }
 
 //    private fun getMonthName(monthIndex: Int): String {

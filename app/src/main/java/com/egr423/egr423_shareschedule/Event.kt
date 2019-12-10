@@ -9,11 +9,12 @@ import java.util.*
 data class Event(
     var eventTitle: String? = null,
     var eventTime: Date? = null,
-    var attendees: List<String>,
+    var eventDaysArray: ArrayList<Date>? = null,
+    var attendees: ArrayList<String>,
     var comments: String? = null,
     var eventCreatorEmail: String? = null
 
-){
-    constructor() : this("", null, listOf("testAttendees"), "testComments", "")
+) {
+    constructor() : this("", null, null, arrayListOf<String>("testAttendees"), "testComments", "")
 
 }
