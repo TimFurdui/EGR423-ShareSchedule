@@ -34,6 +34,7 @@ class RecyclerFriendsAdapter(
 
         holder.parentLayout.setOnClickListener {
 
+
             //TODO OPEN ANOTHER CALENDAR
             //TODO LET USER SELECT DATE
             //TODO QUERY DB AND SEE IF IT TIMES WORK FOR BOTH

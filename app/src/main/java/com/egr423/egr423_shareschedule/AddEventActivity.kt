@@ -48,6 +48,11 @@ class AddEventActivity : AppCompatActivity() {
             if (eventTitle.text.isNotEmpty() && eventTimeInput.text.isNotEmpty()) {
 
                 addEventToDb()
+                Toast.makeText(
+                    this,
+                    "Event ${eventTitle.text} was added!",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
                 Toast.makeText(
                     this,
@@ -76,19 +81,18 @@ class AddEventActivity : AppCompatActivity() {
                     Log.w(TAG, "Event already exists with event name : ${eventTitle.text}")
                 } else {
 
-
                     //TODO MIGHT NEED TO CHANGE THE TYPE OF DATA BEING USED
                     val currentEvent = hashMapOf(
                         "eventTitle" to eventTitle.text.toString(),
                         //TODO for event time need to make it input hour/minute as well
                         "eventTime" to SimpleDateFormat(
-                            "dd-MM-yyyy",
+                            "dd-MM-yyyy hh:mm",
                             Locale.US
                         ).parse(eventTimeInput.text.toString()),
                         "eventCreatorEmail" to eventCreatorEmail,
                         "comments" to comments.text.toString(),
                         //TODO populate this with emails, (Create function that sends alert to user if accepted add them to attendees)
-                        "attendees" to listOf("Attendee#1@gmail.com", "Attendee#2@gmail.com")
+                        "attendees" to listOf<String>()
                     )
                     //THIS IS THE PART THAT ADDS TO THE DB
                     try {

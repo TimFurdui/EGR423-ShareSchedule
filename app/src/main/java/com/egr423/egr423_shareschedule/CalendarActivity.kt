@@ -20,6 +20,8 @@ class CalendarActivity : AppCompatActivity() {
     private lateinit var createEventButton: Button
     private lateinit var viewFriendButton: Button
 
+//    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -37,7 +39,6 @@ class CalendarActivity : AppCompatActivity() {
 
     private fun createCalendar() {
 
-        //TODO can make this change to open a new fragment upon click and to create event and populate in db
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
 
             val dateSelected = "$dayOfMonth-${month + 1}-$year"

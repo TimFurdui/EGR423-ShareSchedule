@@ -26,7 +26,7 @@ class ViewEventsActivity : AppCompatActivity() {
     //Adapter
     private lateinit var eventAdapter: RecyclerEventsAdapter
 
-//    private lateinit var eventArrayList: Array<Event>
+    //    private lateinit var eventArrayList: Array<Event>
     private lateinit var currentDate: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,32 +39,34 @@ class ViewEventsActivity : AppCompatActivity() {
 
     private fun getEvents() {
 
+        val dbDateQuery = SimpleDateFormat(
+            "dd-MM-yyyy hh:mm",
+            Locale.US
+        ).parse(intent.getStringExtra(CalendarActivity.DATETAG))
+
         val date = SimpleDateFormat(
             "dd-MM-yyyy",
             Locale.US
         ).parse(intent.getStringExtra(CalendarActivity.DATETAG))
 
-        Log.w(TAG, "BEFORE QUERY")
-
         var eventsDocumentList = db.collection("users").document(CurrentUserSingleton.userEmail)
             .collection("calendarEvents")
 
+        //TODO IN ORDER TO FIX THE TIME I CHANGED THE EVENTTIME TO AN ARRAY SO WE CAN USE THE ARRAYCONTAINS AND QUERY FOR THE DATE
         eventsDocumentList.whereEqualTo("eventTime", date)
             .get()
             .addOnSuccessListener { eventDocuments ->
                 var listOfEvents = ArrayList<Event>()
-                for (event in eventDocuments) {
+                for ((i, event) in eventDocuments.withIndex()) {
                     listOfEvents.add(event.toObject(Event::class.java))
+                    Log.w(TAG, listOfEvents[i].toString())
                 }
-
-
                 var recyclerView: RecyclerView = findViewById(R.id.eventRecyclerView)
                 eventAdapter = RecyclerEventsAdapter(this, listOfEvents)
                 recyclerView.adapter = eventAdapter
                 recyclerView.layoutManager = LinearLayoutManager(this)
 
                 currentDate.setText(date.toString())
-                //TODO deal with logic in here
 
             }.addOnFailureListener {
                 Log.w(TAG, "Invalid TIME")
