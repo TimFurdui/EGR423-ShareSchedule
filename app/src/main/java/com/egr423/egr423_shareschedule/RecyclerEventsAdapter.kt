@@ -30,6 +30,7 @@ class RecyclerEventsAdapter(
         Log.w(TAG, "onBindViewHolder: called.")
         holder.eventTitle.setText(sortEvents()?.get(position)?.eventTitle)
         holder.eventTimeDate.setText(sortEvents()?.get(position)?.eventTime.toString())
+        holder.eventComment.setText(sortEvents()?.get(position)?.comments.toString())
     }
 
 
@@ -42,12 +43,14 @@ class RecyclerEventsAdapter(
 
         var eventTimeDate: TextView
         var eventTitle: TextView
+        var eventComment: TextView
         var parentLayout: LinearLayout
 
 
         constructor(itemView: View) :
                 super(itemView) {
             eventTimeDate = itemView.findViewById(R.id.eventItemDate)
+            eventComment = itemView.findViewById(R.id.eventItemComment)
             eventTitle = itemView.findViewById(R.id.eventItemName)
             parentLayout = itemView.findViewById(R.id.eventParent_listItem_layout)
         }
@@ -58,12 +61,12 @@ class RecyclerEventsAdapter(
         private val TAG = "RecyclerEventsAdapter"
     }
 
-    private fun sortEvents() : ArrayList<Event>?{
+    private fun sortEvents(): ArrayList<Event>? {
 
         return eventArrayList?.sortedWith(compareBy { it.eventTime })!!.toArrayList()
     }
 
-    private fun<T> List<T>.toArrayList(): ArrayList<T>{
+    private fun <T> List<T>.toArrayList(): ArrayList<T> {
         return ArrayList(this)
     }
 
