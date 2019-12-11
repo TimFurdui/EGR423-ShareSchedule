@@ -7,7 +7,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_addevent.*
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,11 +41,6 @@ class ViewEventsActivity : AppCompatActivity() {
 
     private fun getEvents() {
 
-//        val date = SimpleDateFormat(
-//            "dd-MM-yyyy hh:mm",
-//            Locale.US
-//        ).parse(intent.getStringExtra(CalendarActivity.DATETAG))
-
         val date = SimpleDateFormat(
             "dd-MM-yyyy",
             Locale.US
@@ -52,34 +49,27 @@ class ViewEventsActivity : AppCompatActivity() {
         var eventsDocumentList = db.collection("users").document(CurrentUserSingleton.userEmail)
             .collection("calendarEvents")
 
-//        var allEvents = eventsDocumentList.get().addOnSuccessListener {eventsList ->
-//
-//            for (event in eventsList){
-//                if (event.get("eventTime"))
-//            }
-//
-//        }
+          eventsDocumentList.get()
+              .addOnSuccessListener {
 
-        //TODO IN ORDER TO FIX THE TIME I CHANGED THE EVENTTIME TO AN ARRAY SO WE CAN USE THE ARRAYCONTAINS AND QUERY FOR THE DATE
-        eventsDocumentList.whereArrayContains("eventDaysArray", date).get()
-            .addOnSuccessListener { eventDocuments ->
                 var listOfEvents = ArrayList<Event>()
-                Log.w(TAG, "Before Query")
-                for (event in eventDocuments) {
-                    listOfEvents.add(event.toObject(Event::class.java))
-                    Log.w(TAG, event.toString())
+
+                for (document in it.documents){
+                    var timeStamp : Timestamp = document["eventTime"] as Timestamp
+                    var timeStampDate = timeStamp.toDate().toString().substring(0,10)
+                    if (timeStampDate.equals(date.toString().substring(0,10)))
+                        listOfEvents.add(document.toObject(Event::class.java)!!)
                 }
+
                 var recyclerView: RecyclerView = findViewById(R.id.eventRecyclerView)
                 eventAdapter = RecyclerEventsAdapter(this, listOfEvents)
                 recyclerView.adapter = eventAdapter
                 recyclerView.layoutManager = LinearLayoutManager(this)
 
-                currentDate.setText(date.toString())
-
+                currentDate.setText(date.toString().removeRange(11,23))
             }.addOnFailureListener {
-                Log.w(TAG, "Invalid TIME")
+                Log.w(TAG, "Invalid TIME $it")
             }
-
 
 //        eventsDocumentList.whereEqualTo("eventTime", date)
 //            .get()
@@ -103,10 +93,6 @@ class ViewEventsActivity : AppCompatActivity() {
 //                Log.w(TAG, "Invalid TIME")
 //            }
     }
-
-//    private fun getMonthName(monthIndex: Int): String {
-//        return DateFormatSymbols().months[monthIndex].toString()
-//    }
 
     companion object {
 

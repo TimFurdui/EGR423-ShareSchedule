@@ -90,12 +90,6 @@ class AddEventActivity : AppCompatActivity() {
                                     "dd-MM-yyyy hh:mm",
                                     Locale.US
                                 ).parse(eventTimeInput.text.toString()),
-                        "eventDaysArray" to arrayListOf<Date>(
-                            SimpleDateFormat(
-                                "dd-MM-yyyy hh:mm",
-                                Locale.US
-                            ).parse(eventTimeInput.text.toString())
-                        ),
                         "eventCreatorEmail" to eventCreatorEmail,
                         "comments" to comments.text.toString(),
                         //TODO populate this with emails, (Create function that sends alert to user if accepted add them to attendees)
