@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/friendParent_listItem_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <!--    android:weightSum="2"-->
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/friendItemName"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Friend Name"-->
+    <!--        android:textSize="16sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:paddingTop="20dp"-->
+    <!--        android:paddingEnd="20dp"-->
+    <!--        android:paddingStart="20dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        />-->
+
+    <TextView
+        android:id="@+id/friendItemEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:gravity="center"
+        android:text="Friend Email"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!--        android:layout_weight="1"-->
+
+</LinearLayout>

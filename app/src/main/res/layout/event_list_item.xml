@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/eventParent_listItem_layout"
+    android:weightSum="3">
+
+
+    <TextView
+        android:id="@+id/eventItemName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:layout_weight="1"
+        android:text="@string/eventName"
+        />
+
+    <TextView
+        android:id="@+id/eventItemComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:layout_weight="1.5"
+        android:text="Event Comments"
+        />
+
+    <TextView
+        android:id="@+id/eventItemDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
+        android:layout_weight=".5"
+        android:text="@string/eventTime" />
+
+</LinearLayout>
